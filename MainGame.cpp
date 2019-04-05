@@ -99,9 +99,10 @@ void MainGame::draw()
 	glColor4f(0.349, 0.019, 1, 0.5f);
 	drawHudElement(20, 40, 200, 35);
 	//draw input hud
-	glColor4f(0.349, 0.019, 1, 0.5f);
+	glColor4f(0.019, 0.247, 1, 0.5f);
 	drawHudElement(20, 90, 200, 35);
 	//draw message hud
+	glColor4f(0.349, 0.019, 1, 0.5f);
 	drawHudElement(270, 500, 250, 70);
 
 	//glEnable(GL_DEPTH_TEST);
