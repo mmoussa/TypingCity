@@ -29,12 +29,20 @@ private:
 	int mMaxPoints;
 	int mLevel;
 
+	//game mesh variables
+	float mBoxDim;
+	float mDoorWidth;
+	float mDoorHeight;
+	float mWindowWidth;
+	float mWindowHeight;
+
 	int mNumBoxes;
 
 	//meshes
 	std::list<std::shared_ptr<glsh::Mesh>> mBoxes;
 	std::list<std::shared_ptr<glsh::Mesh>> mDoors;
 	std::list<std::shared_ptr<glsh::Mesh>> mWindows;
+	std::list<std::shared_ptr<glsh::Mesh>> mWorldMeshes;
 
 public:
 	MainGame();
@@ -47,6 +55,8 @@ public:
 
 	//drawing methods
 	void drawText(std::string s, float x, float y);
+	void createWorld();
+	void drawHudElement(float x, float y, float w, float h);
 
 	//keyboard
 	void detectKeyPresses();

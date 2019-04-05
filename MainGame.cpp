@@ -7,7 +7,7 @@ Final Gamification Project
 
 Project Description:
 The game is called Typing City. It is a city building game using typing.
-A random word is generated, and the user can start typing. If the user types the 
+A random word is generated, and the user can start typing. If the user types the
 word correctly, they gain a point, and are able to start building.
 
 There are different building components that the user can choose from e.g. roof,
@@ -50,6 +50,11 @@ bool MainGame::initialize(int w, int h)
 
 	mNumBoxes = 0;
 
+	createWorld();
+
+	//background color
+	glClearColor(0.713, 0.988, 0.988, 1);
+
 	return true;
 }
 
@@ -70,15 +75,34 @@ void MainGame::draw()
 	glClear(GL_ACCUM_BUFFER_BIT);
 	glClear(GL_STENCIL_BUFFER_BIT);
 
+	
+
+	//draw text
 	//draw word
+	glColor3f(1,1,1);
 	drawText(mWord, 25, 50);
 	//draw input text
+	glColor3f(1, 1, 1);
 	drawText(mInputText, 25, 100);
 	//draw level
+	glColor3f(1, 1, 1);
 	drawText(mLevelText, 25, 550);
 	//draw level up text
 	drawText(mLevelUpText, 275, 550);
-
+	
+	
+	//draw huds
+	//draw level hud
+	glColor4f(0.349, 0.019, 1, 0.5f);
+	drawHudElement(20, 540, 125, 35);
+	//draw word hud
+	glColor4f(0.349, 0.019, 1, 0.5f);
+	drawHudElement(20, 40, 200, 35);
+	//draw input hud
+	glColor4f(0.349, 0.019, 1, 0.5f);
+	drawHudElement(20, 90, 200, 35);
+	//draw message hud
+	drawHudElement(270, 500, 250, 70);
 
 	//glEnable(GL_DEPTH_TEST);
 
@@ -120,6 +144,8 @@ void MainGame::draw()
 
 	////draw meshes
 	drawMeshes();
+
+
 
 	//glutSwapBuffers();
 
@@ -163,6 +189,35 @@ void MainGame::drawText(std::string s, float x, float y)
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 	glEnable(GL_TEXTURE_2D);
+}
+
+void MainGame::createWorld()
+{
+	mWorldMeshes.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidPlane(100, 100, 5, 5)));
+}
+
+void MainGame::drawHudElement(float x, float y, float w, float h)
+{
+
+	glDisable(GL_TEXTURE_2D);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	gluOrtho2D(0.0, 800, 0.0, 600);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+	//glRasterPos2i(x, y);
+
+	//draw stuff
+	glRectf(x, y, x + w, y + h);
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+	glEnable(GL_TEXTURE_2D);
+
 }
 
 void MainGame::detectKeyPresses()
@@ -395,14 +450,22 @@ void MainGame::drawMeshes()
 {
 
 	for (std::shared_ptr<glsh::Mesh> box : mBoxes) {
+		glColor3d(1, 0, 1);
 		box->draw();
 	}
 
-	glColor3f(1, 0, 0);
+
 	for (std::shared_ptr<glsh::Mesh> door : mDoors) {
+		glColor3d(1, 0, 0);
 		door->draw();
 	}
 
+	for (std::shared_ptr<glsh::Mesh> worldMesh : mWorldMeshes) {
+		glColor3d(0, 0.619, 0.098);
+		worldMesh->draw();
+	}
+
+	glColor3f(1, 1, 1);
 
 }
 
