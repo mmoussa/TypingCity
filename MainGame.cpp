@@ -1,5 +1,25 @@
 #include "MainGame.h"
 
+/*
+Author: Mohammad Moussa - 991407852
+3D Graphics & Gamification
+Final Gamification Project
+
+Project Description:
+The game is called Typing City. It is a city building game using typing.
+A random word is generated, and the user can start typing. If the user types the 
+word correctly, they gain a point, and are able to start building.
+
+There are different building components that the user can choose from e.g. roof,
+door, window, etc.
+
+The project demonstrates gamification by:
+	- encouraging the user to improve their typing skills
+	- visually showing progress through progress bar and the building components
+	- adjusting challenge difficulty with improving skills
+
+
+*/
 
 
 MainGame::MainGame()
