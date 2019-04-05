@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{58ddb40c-5a68-4bea-b865-2c23bbc64d87}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\vcolor-fs.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\vcolor-vs.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\ucolor-fs.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\ucolor-vs.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\ucolor-DirLight-fs.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\ucolor-DirLight-vs.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\vcolor-DirLight-fs.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="shaders\vcolor-DirLight-vs.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
