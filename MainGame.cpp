@@ -49,6 +49,9 @@ bool MainGame::initialize(int w, int h)
 	mLevelUpText = "";
 
 	mNumBoxes = 0;
+	mBoxDim = 10.f;
+	mDoorWidth = 1.f;
+	mDoorHeight = 5.f;
 
 	createWorld();
 
@@ -120,7 +123,7 @@ void MainGame::draw()
 
 	gluLookAt
 	(
-		3, 3, 6,
+		10, 10, 20,
 		0, 0, 0,
 		0, 1, 0
 	);
@@ -194,7 +197,9 @@ void MainGame::drawText(std::string s, float x, float y)
 
 void MainGame::createWorld()
 {
-	mWorldMeshes.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidPlane(100, 100, 5, 5)));
+	glm::mat4 transformation = glm::mat4(1.f);
+	//transformation = glm::translate(transformation, glm::vec3(0.f, -mBoxDim*2, 0.f));
+	mWorldMeshes.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidPlane(100, 100, 5, 5, transformation)));
 }
 
 void MainGame::drawHudElement(float x, float y, float w, float h)
@@ -451,13 +456,13 @@ void MainGame::drawMeshes()
 {
 
 	for (std::shared_ptr<glsh::Mesh> box : mBoxes) {
-		glColor3d(1, 0, 1);
+		glColor3d(0.807, 0.792, 0.650);
 		box->draw();
 	}
 
 
 	for (std::shared_ptr<glsh::Mesh> door : mDoors) {
-		glColor3d(1, 0, 0);
+		glColor3d(0.533, 0.384, 0.145);
 		door->draw();
 	}
 
@@ -477,15 +482,15 @@ void MainGame::addBox()
 		//move next box up
 		transform = glm::translate(transform, glm::vec3(0.f, 1.f, 0.f));
 	}
-	mBoxes.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidBox(1, 1, 1, transform)));
+	mBoxes.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidBox(mBoxDim, mBoxDim, mBoxDim, transform)));
 	mNumBoxes++;
 }
 
 void MainGame::addDoor()
 {
 	glm::mat4 transform = glm::mat4(1.0f);
-
-	mDoors.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidBox(0.25, 0.5, 0.1)));
+	transform = glm::translate(transform, glm::vec3(0.f, 0.f, mBoxDim/2));
+	mDoors.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidBox(mDoorWidth, mDoorHeight, 0.1, transform)));
 }
 
 void MainGame::addWindow()
