@@ -22,6 +22,10 @@ private:
 	std::string mLevelUpText;
 	bool mShowMessageHud;
 
+	int mCountDown;
+	std::string mCountDownText;
+	float mDeltaTime = 0.f;
+
 	std::vector<std::string> lines;
 	std::ifstream infile;
 
@@ -71,6 +75,7 @@ public:
 
 	//utils
 	int genRandNum(int max);
+	void updateCountDown(int countdown = 10);
 
 	//game methods
 	bool isLeveledUp();
@@ -80,6 +85,7 @@ public:
 	void addRoof();
 	void addDoor();
 	void addWindow();
+	void resetGame();
 
 };
 

@@ -49,6 +49,8 @@ bool MainGame::initialize(int w, int h)
 	mLevelUpText = "Press Return Key\nand start typing!";
 	mShowMessageHud = true;
 
+	updateCountDown(10);
+
 	mNumBoxes = 0;
 	mBoxDim = 10.f;
 	mDoorWidth = 1.f;
@@ -86,6 +88,8 @@ void MainGame::draw()
 	//draw word
 	glColor3f(1, 1, 1);
 	drawText(mWord, 25, 50);
+	//draw countdown text
+	drawText(mCountDownText, 0, 50);
 	//draw input text
 	glColor3f(1, 1, 1);
 	drawText(mInputText, 25, 100);
@@ -164,6 +168,19 @@ void MainGame::draw()
 
 void MainGame::update(float dt)
 {
+	if (!mShowMessageHud) {
+		mDeltaTime += dt;
+	}
+
+	if (mDeltaTime >= 1.f) {
+		mDeltaTime = 0.f;
+		updateCountDown(mCountDown - 1);
+	}
+
+	if (mCountDown == 0) {
+		resetGame();
+	}
+
 	detectKeyPresses();
 }
 
@@ -403,6 +420,7 @@ void MainGame::inputWord()
 {
 	//check if input matches word
 	if (mInputText == mWord) {
+		updateCountDown(10);
 		std::cout << "Correct!" << std::endl;
 		mInputText = "";
 		getNextWord();
@@ -432,6 +450,12 @@ int MainGame::genRandNum(int max)
 
 	return randnum;
 
+}
+
+void MainGame::updateCountDown(int countdown)
+{
+	mCountDown = countdown;
+	mCountDownText = std::to_string(countdown);
 }
 
 bool MainGame::isLeveledUp()
@@ -587,6 +611,24 @@ void MainGame::addWindow()
 	transform = glm::mat4(1.0f);
 	transform = glm::translate(transform, glm::vec3(-3.f, mBoxDim / 4, mBoxDim / 2));
 	mWindows.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidBox(mDoorWidth, mDoorWidth, 0.1, transform)));
+}
+
+void MainGame::resetGame()
+{
+	mLevel = 1.f;
+	mLevelText = "Level: " + std::to_string(mLevel);
+
+	mBoxes.clear();
+	mDoors.clear();
+	mWindows.clear();
+
+	mShowMessageHud = true;
+	mLevelUpText = "Game Over!";
+
+	updateCountDown(10);
+
+	mNumBoxes = 0;
+	mRoofExists = false;
 }
 
 
