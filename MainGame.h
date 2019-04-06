@@ -34,6 +34,9 @@ private:
 	int mMaxPoints;
 	int mLevel;
 
+	bool mTimedOut = false;
+	float mDeltaTimeOut = 0.f;
+
 	//game mesh variables
 	float mBoxDim;
 	float mDoorWidth;

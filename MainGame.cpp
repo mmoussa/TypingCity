@@ -119,8 +119,14 @@ void MainGame::draw()
 	drawHudElement(20, 10, 25, 25);
 
 	//draw input hud
-	glColor4f(0.019, 0.247, 1, 0.5f);
+	if (mTimedOut) {
+		glColor3f(1.f, 0.f, 0.f);
+	}
+	else {
+		glColor4f(0.019, 0.247, 1, 0.5f);
+	}
 	drawHudElement(20, 90, 200, 35);
+
 	//draw message hud
 	if (mShowMessageHud) {
 		glColor4f(0.349, 0.019, 1, 0.5f);
@@ -181,11 +187,20 @@ void MainGame::update(float dt)
 {
 	if (!mShowMessageHud) {
 		mDeltaTime += dt;
+		
+		if (mTimedOut) {
+			mDeltaTimeOut += dt;
+		}
 	}
 
 	if (mDeltaTime >= 1.f) {
 		mDeltaTime = 0.f;
 		updateCountDown(mCountDown - 1);
+	}
+
+	if (mDeltaTimeOut >= 1.f) {
+		mDeltaTimeOut = 0.f;
+		mTimedOut = false;
 	}
 
 	if (mCountDown == 0) {
@@ -262,7 +277,7 @@ void MainGame::drawHudElement(float x, float y, float w, float h)
 void MainGame::detectKeyPresses()
 {
 	const glsh::Keyboard* kb = getKeyboard();
-	if (mWord != "" && mLevelUpText == "") {
+	if (mWord != "" && mLevelUpText == "" && !mTimedOut) {
 		if (kb->keyPressed(glsh::KC_A)) {
 			typeLetter("a", "A");
 		}
@@ -442,6 +457,7 @@ void MainGame::inputWord()
 
 	}
 	else {
+		mTimedOut = true;
 		std::cout << "Wrong! Try again." << std::endl;
 		mInputText = "";
 	}
@@ -640,6 +656,10 @@ void MainGame::resetGame()
 
 	getNextWord();
 	mInputText = "";
+
+	mTimedOut = false;
+	mDeltaTimeOut = 0.f;
+	mDeltaTime = 0.f;
 
 	mNumBoxes = 0;
 	mRoofExists = false;
