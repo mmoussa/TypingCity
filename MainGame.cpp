@@ -89,7 +89,7 @@ void MainGame::draw()
 	glColor3f(1, 1, 1);
 	drawText(mWord, 25, 50);
 	//draw countdown text
-	drawText(mCountDownText, 0, 50);
+	drawText(mCountDownText, 22.5, 17.5);
 	//draw input text
 	glColor3f(1, 1, 1);
 	drawText(mInputText, 25, 100);
@@ -107,6 +107,17 @@ void MainGame::draw()
 	//draw word hud
 	glColor4f(0.349, 0.019, 1, 0.5f);
 	drawHudElement(20, 40, 200, 35);
+
+	//draw countdown hud
+	if (mCountDown >= 5) {
+		glColor3f(0.f, 1.f, 0.f);
+	}
+	else {
+		glColor3f(1.f, 0.f, 0.f);
+	}
+
+	drawHudElement(20, 10, 25, 25);
+
 	//draw input hud
 	glColor4f(0.019, 0.247, 1, 0.5f);
 	drawHudElement(20, 90, 200, 35);
@@ -626,6 +637,9 @@ void MainGame::resetGame()
 	mLevelUpText = "Game Over!";
 
 	updateCountDown(10);
+
+	getNextWord();
+	mInputText = "";
 
 	mNumBoxes = 0;
 	mRoofExists = false;
