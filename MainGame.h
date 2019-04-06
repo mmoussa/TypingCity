@@ -35,6 +35,7 @@ private:
 	float mDoorHeight;
 	float mWindowWidth;
 	float mWindowHeight;
+	bool mRoofExists;
 
 	int mNumBoxes;
 
@@ -75,6 +76,7 @@ public:
 	void drawMeshes();
 	void addBox();
 	void drawRoof();
+	void addRoof();
 	void addDoor();
 	void addWindow();
 

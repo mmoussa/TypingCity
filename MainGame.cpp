@@ -52,6 +52,7 @@ bool MainGame::initialize(int w, int h)
 	mBoxDim = 10.f;
 	mDoorWidth = 1.f;
 	mDoorHeight = 5.f;
+	mRoofExists = false;
 
 	createWorld();
 
@@ -442,6 +443,9 @@ bool MainGame::isLeveledUp()
 			addBox();
 			break;
 		case 3:
+			addRoof();
+			break;
+		case 4:
 			addDoor();
 			break;
 		default:
@@ -454,7 +458,10 @@ bool MainGame::isLeveledUp()
 
 void MainGame::drawMeshes()
 {
-	drawRoof();
+	if (mRoofExists) {
+		drawRoof();
+	}
+	
 	for (std::shared_ptr<glsh::Mesh> box : mBoxes) {
 		glColor3d(0.807, 0.792, 0.650);
 		box->draw();
@@ -540,6 +547,11 @@ void MainGame::drawRoof()
 
 	glPopMatrix();
 
+}
+
+void MainGame::addRoof()
+{
+	mRoofExists = true;
 }
 
 void MainGame::addDoor()
