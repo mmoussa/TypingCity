@@ -46,7 +46,8 @@ bool MainGame::initialize(int w, int h)
 	mMaxPoints = 5;
 	mLevel = 1;
 	mLevelText = "Level: " + std::to_string(mLevel);
-	mLevelUpText = "";
+	mLevelUpText = "Press Return Key\nand start typing!";
+	mShowMessageHud = true;
 
 	mNumBoxes = 0;
 	mBoxDim = 10.f;
@@ -106,8 +107,11 @@ void MainGame::draw()
 	glColor4f(0.019, 0.247, 1, 0.5f);
 	drawHudElement(20, 90, 200, 35);
 	//draw message hud
-	glColor4f(0.349, 0.019, 1, 0.5f);
-	drawHudElement(270, 500, 250, 70);
+	if (mShowMessageHud) {
+		glColor4f(0.349, 0.019, 1, 0.5f);
+		drawHudElement(270, 500, 250, 70);
+	}
+	
 
 	//glEnable(GL_DEPTH_TEST);
 
@@ -351,6 +355,7 @@ void MainGame::detectKeyPresses()
 		}
 		else {
 			mLevelUpText = "";
+			mShowMessageHud = false;
 		}
 
 	}
@@ -437,16 +442,23 @@ bool MainGame::isLeveledUp()
 		mCurrentPoints = 0;
 
 		//show text
-		mLevelUpText = "Woohoo! You leveled up!\nPress Return Key...";
+		mShowMessageHud = true;
 		switch (mLevel) {
 		case 2:
+			mLevelUpText = "You built the walls!\nPress Return Key...";
 			addBox();
 			break;
 		case 3:
+			mLevelUpText = "You built the roof!\nPress Return Key...";
 			addRoof();
 			break;
 		case 4:
+			mLevelUpText = "You built the door!\nPress Return Key...";
 			addDoor();
+			break;
+		case 5:
+			mLevelUpText = "You built the windows!\nPress Return Key...";
+			addWindow();
 			break;
 		default:
 			break;
@@ -471,6 +483,11 @@ void MainGame::drawMeshes()
 	for (std::shared_ptr<glsh::Mesh> door : mDoors) {
 		glColor3d(0.533, 0.384, 0.145);
 		door->draw();
+	}
+
+	for (std::shared_ptr<glsh::Mesh> window : mWindows) {
+		glColor3d(0.717, 0.956, 0.964);
+		window->draw();
 	}
 
 	for (std::shared_ptr<glsh::Mesh> worldMesh : mWorldMeshes) {
@@ -563,6 +580,13 @@ void MainGame::addDoor()
 
 void MainGame::addWindow()
 {
+	glm::mat4 transform = glm::mat4(1.0f);
+	transform = glm::translate(transform, glm::vec3(3.f, mBoxDim / 4, mBoxDim / 2));
+	mWindows.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidBox(mDoorWidth, mDoorWidth, 0.1, transform)));
+
+	transform = glm::mat4(1.0f);
+	transform = glm::translate(transform, glm::vec3(-3.f, mBoxDim / 4, mBoxDim / 2));
+	mWindows.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidBox(mDoorWidth, mDoorWidth, 0.1, transform)));
 }
 
 

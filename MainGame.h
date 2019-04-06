@@ -20,6 +20,7 @@ private:
 	std::string mWord;
 	std::string mLevelText;
 	std::string mLevelUpText;
+	bool mShowMessageHud;
 
 	std::vector<std::string> lines;
 	std::ifstream infile;
