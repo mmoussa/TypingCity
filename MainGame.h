@@ -74,6 +74,7 @@ public:
 	bool isLeveledUp();
 	void drawMeshes();
 	void addBox();
+	void drawRoof();
 	void addDoor();
 	void addWindow();
 

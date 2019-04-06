@@ -78,11 +78,11 @@ void MainGame::draw()
 	glClear(GL_ACCUM_BUFFER_BIT);
 	glClear(GL_STENCIL_BUFFER_BIT);
 
-	
+
 
 	//draw text
 	//draw word
-	glColor3f(1,1,1);
+	glColor3f(1, 1, 1);
 	drawText(mWord, 25, 50);
 	//draw input text
 	glColor3f(1, 1, 1);
@@ -92,8 +92,8 @@ void MainGame::draw()
 	drawText(mLevelText, 25, 550);
 	//draw level up text
 	drawText(mLevelUpText, 275, 550);
-	
-	
+
+
 	//draw huds
 	//draw level hud
 	glColor4f(0.349, 0.019, 1, 0.5f);
@@ -144,7 +144,7 @@ void MainGame::draw()
 
 
 	// enable back face culling for efficiency
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 
 	////draw meshes
 	drawMeshes();
@@ -454,7 +454,7 @@ bool MainGame::isLeveledUp()
 
 void MainGame::drawMeshes()
 {
-
+	drawRoof();
 	for (std::shared_ptr<glsh::Mesh> box : mBoxes) {
 		glColor3d(0.807, 0.792, 0.650);
 		box->draw();
@@ -486,10 +486,66 @@ void MainGame::addBox()
 	mNumBoxes++;
 }
 
+void MainGame::drawRoof()
+{
+
+	glPushMatrix();
+	glScalef(5, 1, 5);
+	glTranslatef(0.f, 6.f, 0.f);
+
+	
+	
+
+	glBegin(GL_TRIANGLES);           // Begin drawing the pyramid with 4 triangles
+									 // Front
+	glColor3f(0.474, 0.439, 0.388);     // Red
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.474, 0.439, 0.388);     // Green
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glColor3f(0.474, 0.439, 0.388);     // Blue
+	glVertex3f(1.0f, -1.0f, 1.0f);
+
+	// Right
+	glColor3f(0.329, 0.290, 0.231);     // Red
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.329, 0.290, 0.231);     // Blue
+	glVertex3f(1.0f, -1.0f, 1.0f);
+	glColor3f(0.329, 0.290, 0.231);     // Green
+	glVertex3f(1.0f, -1.0f, -1.0f);
+
+	// Back
+	glColor3f(1.0f, 0.0f, 0.0f);     // Red
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.0f, 1.0f, 0.0f);     // Green
+	glVertex3f(1.0f, -1.0f, -1.0f);
+	glColor3f(0.0f, 0.0f, 1.0f);     // Blue
+	glVertex3f(-1.0f, -1.0f, -1.0f);
+
+	// Left
+	glColor3f(1.0f, 0.0f, 0.0f);       // Red
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.0f, 0.0f, 1.0f);       // Blue
+	glVertex3f(-1.0f, -1.0f, -1.0f);
+	glColor3f(0.0f, 1.0f, 0.0f);       // Green
+	glVertex3f(-1.0f, -1.0f, 1.0f);
+	glEnd();   // Done drawing the pyramid
+
+	
+
+	
+
+
+	
+	
+
+	glPopMatrix();
+
+}
+
 void MainGame::addDoor()
 {
 	glm::mat4 transform = glm::mat4(1.0f);
-	transform = glm::translate(transform, glm::vec3(0.f, 0.f, mBoxDim/2));
+	transform = glm::translate(transform, glm::vec3(0.f, 0.f, mBoxDim / 2));
 	mDoors.push_back(std::shared_ptr<glsh::Mesh>(glsh::CreateSolidBox(mDoorWidth, mDoorHeight, 0.1, transform)));
 }
 
