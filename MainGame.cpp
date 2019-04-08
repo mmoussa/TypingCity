@@ -3,20 +3,24 @@
 /*
 Author: Mohammad Moussa - 991407852
 3D Graphics & Gamification
-Final Gamification Project
+Final Gamification Project: Typing City
 
 Project Description:
 The game is called Typing City. It is a city building game using typing.
-A random word is generated, and the user can start typing. If the user types the
-word correctly, they gain a point, and are able to start building.
+A random word is generated, and the user can start typing. If the user types
+a number of words correctly, they gain a level, and are rewarded with a part of
+a house. The more words the player types correctly, the more levels they gain,
+and the more complex their house becomes.
 
-There are different building components that the user can choose from e.g. roof,
+There are different house components that the user gains e.g. roof,
 door, window, etc.
 
 The project demonstrates gamification by:
 	- encouraging the user to improve their typing skills
-	- visually showing progress through progress bar and the building components
-	- adjusting challenge difficulty with improving skills
+	- Achievements: Showing progress through gaining levels and building 
+	  different parts of the house
+	- Variable reward schedule: rewards are granted after a random number of correct 
+	  words
 
 
 */
