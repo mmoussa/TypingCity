@@ -513,6 +513,7 @@ bool MainGame::isLeveledUp()
 			addWindow();
 			break;
 		default:
+			mLevelUpText = "Your'e done with the game\nbut you can keep playing...";
 			break;
 		}
 		return true;
