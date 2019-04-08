@@ -77,7 +77,7 @@ public:
 	void inputWord();
 
 	//utils
-	int genRandNum(int max);
+	int genRandNum(int max, int min = 0);
 	void updateCountDown(int countdown = 10);
 
 	//game methods

@@ -43,7 +43,7 @@ bool MainGame::initialize(int w, int h)
 
 	//setup game
 	mCurrentPoints = 0;
-	mMaxPoints = 5;
+	mMaxPoints = genRandNum(15, 5);
 	mLevel = 1;
 	mLevelText = "Level: " + std::to_string(mLevel);
 	mLevelUpText = "Press Return Key\nand start typing!";
@@ -463,7 +463,7 @@ void MainGame::inputWord()
 	}
 }
 
-int MainGame::genRandNum(int max)
+int MainGame::genRandNum(int max, int min)
 {
 	std::mt19937_64 rng;
 	// initialize the random number generator with time-dependent seed
@@ -471,7 +471,7 @@ int MainGame::genRandNum(int max)
 	std::seed_seq ss{ uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32) };
 	rng.seed(ss);
 	// initialize a uniform distribution between 0 and 1
-	std::uniform_real_distribution<double> unif(0, max);
+	std::uniform_real_distribution<double> unif(min, max);
 	// ready to generate random numbers
 	int randnum = unif(rng);
 
@@ -488,6 +488,7 @@ void MainGame::updateCountDown(int countdown)
 bool MainGame::isLeveledUp()
 {
 	if (mCurrentPoints >= mMaxPoints) {
+		mMaxPoints = genRandNum(15, 5);
 		mLevel++;
 		mLevelText = "Level: " + std::to_string(mLevel);
 		mCurrentPoints = 0;
@@ -663,6 +664,9 @@ void MainGame::resetGame()
 
 	mNumBoxes = 0;
 	mRoofExists = false;
+
+	mMaxPoints = genRandNum(15, 5);
+	mCurrentPoints = 0;
 }
 
 
